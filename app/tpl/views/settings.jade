@@ -1,0 +1,16 @@
+.container
+	.row
+		.col-lg-12
+			h1 Settings
+				| &nbsp;
+				small: a(href='/') go home
+			hr
+			form#settings
+				.form-group
+					label(for='photo-width') Photo width:
+					input#photo-width.photo-size.form-control(type='number', min=100, max=2000, placeholder='width', value=user.get('width'))
+
+				.form-group
+					label(for='photo-height') Photo height
+					input#photo-height.photo-size.form-control(type='number', min=100, max=2000, placeholder='height', value=user.get('height'))
+				button.btn.btn-default(type='submit') Submit

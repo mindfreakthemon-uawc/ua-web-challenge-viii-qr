@@ -1,0 +1,42 @@
+html,
+body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+.row + .row {
+	margin-top: 15px;
+}
+
+.comment > .media-left {
+	width: 32px;
+	display: none;
+
+	.comment & {
+		display: table-cell;
+	}
+}
+
+.comment,
+.post,
+.subreddit {
+	margin: 20px 0;
+}
+
+.loading {
+	width: 30px;
+	margin: 0 0 0 20px;
+}
+
+.pagination > li > a.favourite {
+	color: #000;
+
+	&.js-favourite {
+		color: #f00;
+	}
+}

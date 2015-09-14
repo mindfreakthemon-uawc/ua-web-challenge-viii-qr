@@ -1,0 +1,19 @@
+doctype html
+html
+	head
+		title test
+		link(rel='stylesheet', href='lib/bootstrap/dist/css/bootstrap.min.css')
+		link(rel='stylesheet', href='css/style.css')
+	body
+		#viewport
+			.navbar.navbar-default
+				.container-fluid
+					.navbar-header: a.fn-redirect.navbar-brand(href='/') Lorempixel
+					.navbar-right
+						ul.nav.navbar-nav
+							li: a(href='/settings')
+								| Settings &nbsp;
+								i.glyphicon.glyphicon-cog
+			.container.content
+
+		script(src='lib/requirejs/require.js', data-main='js/main')
