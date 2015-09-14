@@ -25,8 +25,8 @@ define([
 
 			/* favourites */
 
-			getFavourites: function (category) {
-				return this._loadFavourites(category);
+			getFavourites: function () {
+				return this._loadFavourites();
 			},
 
 			toggleFavourite: function (photo) {
@@ -42,21 +42,19 @@ define([
 			},
 
 			removeFavourite: function (photo) {
-				var category = photo.get('category'),
-					array = this._loadFavourites(category);
+				var array = this._loadFavourites();
 
-				array.splice(array.indexOf(photo.id), 1);
+				array.splice(this._indexFavourites(photo), 1);
 
-				this._saveFavourites(category, array);
+				this._saveFavourites(array);
 			},
 
 			addFavourite: function (photo) {
-				var category = photo.get('category'),
-					array = this._loadFavourites(category);
+				var array = this._loadFavourites();
 
 				array.push(photo.id);
 
-				this._saveFavourites(category, array);
+				this._saveFavourites(array);
 			},
 
 			isFavourite: function (photo) {
@@ -64,26 +62,22 @@ define([
 					return false;
 				}
 
-				return !!this._inFavourites(photo.get('category'), photo.id);
+				return this._indexFavourites(photo) > -1;
 			},
 
 			/* private */
 
-			_favourites: {},
+			_favourites: null,
 
-			_inFavourites: function (category, id) {
-				var array = this._loadFavourites(category);
+			_indexFavourites: function (photo) {
+				var array = this._loadFavourites();
 
-				return array.indexOf(id) !== -1;
+				return array.indexOf(photo.id);
 			},
 
-			_loadFavourites: function (category) {
-				var string = this._favourites[category] || localStorage.getItem(category),
+			_loadFavourites: function () {
+				var string = this._favourites || localStorage.getItem('favourites'),
 					array = [];
-
-				if (this._favourites) {
-					this._favourites[category] = string;
-				}
 
 				try {
 					array = string ? JSON.parse(string) : [];
@@ -94,10 +88,10 @@ define([
 				return array;
 			},
 
-			_saveFavourites: function (category, array) {
-				localStorage.setItem(category, JSON.stringify(array));
+			_saveFavourites: function (array) {
+				localStorage.setItem('favourites', JSON.stringify(array));
 
-				delete this._favourites[category];
+				delete this._favourites;
 			},
 
 			_loadSettings: function () {

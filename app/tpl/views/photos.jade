@@ -1,19 +1,28 @@
 .container
-	.row
-		.col-lg-10
-			h1= categories[collection.category]
-				small
-					| &nbsp;
-					if showFavourites
-						a(href='/category/' + collection.category) show all
-					else
-						a(href='/category/' + collection.category + '/favourites') show only favourites
-			hr
-		.col-md-2
-			h4 Category:
-			select.form-control#category
-				each val, key in categories
-					option(value=key, selected=key === collection.category)= val
+	if showFavourites
+		.row
+			.col-lg-12
+				h1 Favourites
+					small
+						| &nbsp;
+						#modes.btn-group
+							a.btn.btn-primary(href='/') Show all
+				hr
+	else
+		.row
+			.col-lg-10
+				h1= categories[collection.category]
+					small
+						| &nbsp;
+						#modes.btn-group
+							a.btn.btn-primary(href='/favourites') Show only favourites
+				hr
+			.col-md-2
+
+					h4 Category:
+					select.form-control#category
+						each val, key in categories
+							option(value=key, selected=key === collection.category)= val
 
 	.row
 		.col-md-12.text-center
@@ -22,13 +31,14 @@
 					h2 no photos to display..
 			else if photo
 				.display
-				h5 Photo ##{photo.id}
+				h5 Photo ##{photo.get('number')} from #{categories[photo.get('category')]}
 			else
 				.well
 					img.loading(src='/images/loading.gif')
 
-	.row
-		.col-lg-12.text-center
+	if !showFavourites || favourites.length
+		.row
+			.col-lg-12.text-center
 				ul.pagination.pagination-lg
 						li(class=collection.hasPrev() ? '' : 'disabled'): a.prev(href='#') &laquo;
 						li: a(href='#', class=user.isFavourite(photo) ? 'js-favourite' : '').favourite

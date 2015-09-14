@@ -38,6 +38,8 @@ define([
 
 				$(document).on('keyup.photos', this._hotKey.bind(this));
 
+				this.$('#modes').button('toggle');
+
 				this.listenTo(this.collection, 'add change reset', this.render);
 			},
 
@@ -84,7 +86,6 @@ define([
 			_goToNext: function (e) {
 				e.preventDefault();
 
-				console.log(this, arguments);
 				this.collection.goToNext();
 			},
 

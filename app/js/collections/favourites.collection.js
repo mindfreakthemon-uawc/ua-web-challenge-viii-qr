@@ -20,7 +20,7 @@ define([
 				++this.counter;
 
 				if (this.counter >= this.length) {
-					this._load(this._favourites[this.counter]);
+					this._loadNext();
 				} else {
 					this.trigger('change');
 				}
@@ -33,7 +33,14 @@ define([
 			},
 
 			_loadNext: function () {
-				this._load(this._favourites[this.counter]);
+				var id = this._favourites[this.counter],
+					_split;
+
+				if (id) {
+					_split = id.split('-');
+
+					this._load(_split[0], _split[1]);
+				}
 			}
 		});
 	});

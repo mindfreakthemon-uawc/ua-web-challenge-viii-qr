@@ -6,12 +6,14 @@ require({
 		backbone: '../lib/backbone/backbone',
 		bootstrap: '../lib/bootstrap/dist/js/bootstrap.min',
 		jade: '../lib/jade/runtime',
-		templates: '../templates',
-		'jquery-hotkeys': '../lib/jquery-hotkeys/jquery.hotkeys',
-		'backbone-hotkeys': '../lib/backbone-hotkeys/backbone-hotkeys'
+		templates: '../templates'
+	},
+	shim: {
+		bootstrap: { deps: ['jquery'] }
 	}
 }, [
 	'backbone',
+	'bootstrap',
 	'entities/app'
 ], function (Backbone) {
 	Backbone.history.start({

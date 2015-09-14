@@ -60,15 +60,18 @@ define([
 				this._load(this.length + 1);
 			},
 
-			_load: function (id) {
+			_load: function (id, category) {
 				var image = new Image(),
 					self = this;
+
+				category = category || this.category;
 
 				image.onload = function () {
 					self.add({
 						image: image,
-						category: self.category,
-						id: id
+						category: category,
+						number: id,
+						id: id + '-' + category
 					});
 				};
 
@@ -76,7 +79,7 @@ define([
 					self.trigger('error');
 				};
 
-				image.src = 'http://lorempixel.com/' + this.width + '/' + this.height + '/' + this.category + '/' + id
+				image.src = 'http://lorempixel.com/' + this.width + '/' + this.height + '/' + category + '/' + id
 			}
 		});
 	});

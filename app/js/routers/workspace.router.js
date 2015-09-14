@@ -13,7 +13,7 @@ define([
 			routes: {
 				'': 'main',
 				'category/:category': 'main',
-				'category/:category/favourites': 'favourites',
+				'favourites': 'favourites',
 				'settings': 'settings'
 			},
 
@@ -35,12 +35,10 @@ define([
 				photosView.render().$el.appendTo(this.app.$('.content'));
 			},
 
-			favourites: function (category) {
-				category = category || 'sports';
-
-				var favourites = user.getFavourites(category),
+			favourites: function () {
+				var favourites = user.getFavourites(),
 					photos = new FavouritesCollection([], {
-						category: category,
+						category: 'favourites',
 						favourites: favourites,
 						width: user.get('width'),
 						height: user.get('height')
